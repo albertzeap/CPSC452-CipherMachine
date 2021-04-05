@@ -20,9 +20,9 @@ bool Caesar::setKey(const string& key)
 
 		verifiedKey += letter;						//Append the digit values to the string
 	}
-		keyValue = stoi(verifiedKey) % 26;				//Convert the string value to an int
+		keyValue = stoi(verifiedKey);				//Convert the string value to an int
 	
-		if (isdigit(keyValue)){
+		if (!isdigit(keyValue)){
 			cout << "CURRENT KEY: "<<verifiedKey << "\n";
 			caesarKey = keyValue;
 			return true;
@@ -43,8 +43,8 @@ string Caesar::encrypt(const string& plaintext)
 { 
 	string ciphertext;							//Create the ciphertext variable
 	for (int i = 0; i < plaintext.length(); ++i){
-		char letter = plaintext[i]; 			//Saves the current character to be shifted 
-		letter += caesarKey % 26;					//Shifts the letter by the key value
+		char letter = plaintext[i];				//Saves the current character to be shifted 
+		letter += caesarKey % 26;				//Shifts the letter by the key value
 		ciphertext += letter;					//Saves value
 	}
 	cout << "ENCRYPTION: " <<ciphertext << endl;
