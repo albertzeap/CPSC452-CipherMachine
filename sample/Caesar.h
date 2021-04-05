@@ -5,6 +5,9 @@
 #include <string>   /* For C++ strings */
 #include <stdio.h>  /* For standard I/O */
 #include <stdlib.h> /* For miscellenous C functions */
+#include <iostream>
+#include <ctype.h>
+#include <stdexcept>
 #include "CipherInterface.h"
 
 using namespace std;
@@ -41,15 +44,11 @@ class Caesar: public CipherInterface
 		 */
 		virtual string decrypt(const string& ciphertext);
 			
-		/**
-		 * Prints the Playfair matrix
-		 * @param fp - the file pointer
-		 */
-		void printMatrix(FILE* fp);
+		
 		
 		/* The protected members */
 	protected:
-	
+		int caesarKey; 
 
 };
 

@@ -1,20 +1,22 @@
 #include <string>
 #include "CipherInterface.h"
 #include "Playfair.h"
+#include "Caesar.h"
+
+
 
 using namespace std;
 
 int main(int argc, char** argv)
 {
-	/* REPLACE THIS PART WITH YOUR CODE 
-	 * THE CODE BELOW IS A SAMPLE TO 
-	 * ILLUSTRATE INSTANTIATION OF CLASSES
-	 * THAT USE THE SAME INTERFACE.
-	 */	
+	if(argc != 6){
+		fprintf(stderr, "Usage: <CIPHER NAME> <KEY> <ENC/DEC> <INPUTFILE> <OUTPUT FILE>\n");
+		exit(-1);
+	}
 		
 
 	/* Create an instance of the Playfair cipher */	
-	CipherInterface* cipher = new Playfair();
+	CipherInterface* cipher = new Caesar();
 	
 	/* Error checks */
 	if(!cipher)
@@ -25,7 +27,7 @@ int main(int argc, char** argv)
 	}
 	
 	/* Set the encryption key */
-	cipher->setKey("security");
+	cipher->setKey(argv[2]);
 	
 	/* Perform encryption */
 	string cipherText = cipher->encrypt("hello world");
