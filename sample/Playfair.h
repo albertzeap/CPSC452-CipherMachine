@@ -5,6 +5,7 @@
 #include <string>   /* For C++ strings */
 #include <stdio.h>  /* For standard I/O */
 #include <stdlib.h> /* For miscellenous C functions */
+#include <iostream>
 #include "CipherInterface.h"
 
 using namespace std;
@@ -49,7 +50,13 @@ class Playfair: public CipherInterface
 		
 		/* The protected members */
 	protected:
-	
+
+		//The key for encrypting
+		string playKey;
+
+		//The 5x5 matrix that will be used
+		string matrix[5][5];
+
 
 };
 

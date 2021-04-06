@@ -8,7 +8,19 @@
  */
 bool Playfair::setKey(const string& key)
 { 
-	
+	string keyVal;
+	for(int i = 0; i < key.length(); ++i){			//Iterate through the key to check for digits
+		if(isalpha(key[i])){
+			keyVal += key[i];
+
+			if(keyVal.length() == key.length()){ 	//Only return true if the whole key had no digits
+				playKey = key;
+				return true;
+			}
+		}
+
+	}
+
 	return false;  
 }
 
@@ -22,8 +34,17 @@ bool Playfair::setKey(const string& key)
  */
 string Playfair::encrypt(const string& plaintext)
 { 
+	string cipherText;
+	for(int i = 0; i < plaintext.length(); ++i){
+		
+
+
+
+
+
+	}
 	
-	
+ 	
 	return ""; 
 }
 
@@ -37,4 +58,6 @@ string Playfair::decrypt(const string& cipherText)
 	return ""; 
 	
 }
+
+
 

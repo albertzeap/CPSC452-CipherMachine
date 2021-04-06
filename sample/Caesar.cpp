@@ -17,6 +17,7 @@ bool Caesar::setKey(const string& key)
 		cout << "CURRENT KEY: "<<keyValue << "\n";
 		caesarKey = (keyValue % 26);
 		cout << "Shift Value: " << caesarKey << endl;
+		return true;
 	}					
 	return false;  
 }
