@@ -15,8 +15,8 @@ bool Caesar::setKey(const string& key)
 	}
 	else {
 		cout << "CURRENT KEY: "<<keyValue << "\n";
-		caesarKey = keyValue;
-		return true;
+		caesarKey = (keyValue % 26);
+		cout << "Shift Value: " << caesarKey << endl;
 	}					
 	return false;  
 }
@@ -31,16 +31,22 @@ bool Caesar::setKey(const string& key)
  */
 string Caesar::encrypt(const string& plaintext)
 { 
-	string ciphertext;							//Create the ciphertext variable
+	string ciphertext;										//Create the ciphertext variable
+
 	for (int i = 0; i < plaintext.length(); ++i){
-		char letter = plaintext[i];				//Saves the current character to be shifted 
-		if(letter <= 'a' || letter <= 'z'){
-			
+		int charVal = ((int)plaintext[i]) + caesarKey;		//Shift the plaintext over by the key
+
+		if(charVal <= 'z'){									//Checks if shifted value is out of bounds
+			ciphertext += (char)charVal;
 		}
-		letter += caesarKey % 26;				//Shifts the letter by the key value
-		ciphertext += letter;					//Saves value
+		else{
+			charVal = (charVal - 'z') + 'a';				//Loop back to the beginning of the alphabet
+			ciphertext +=(char)charVal;
+		}
+		
+				
 	}
-	cout << "ENCRYPTION: " <<ciphertext << endl;
+	cout << "ENCRYPTION - CIPHERTEXT: " <<ciphertext << endl;
 
 	return ciphertext; 
 }
@@ -54,11 +60,18 @@ string Caesar::decrypt(const string& cipherText)
 {
 	string plainText;
 	for (int i = 0; i < cipherText.length(); ++i){
-			char letter = cipherText[i]; 			//Saves the current character to be shifted 
-			letter -= caesarKey % 26;				//Shifts the letter by the key value
-			plainText += letter;					//Saves value
+			int charVal = (int)cipherText[i] - caesarKey;
+
+		if(charVal >= 'a'){
+			plainText += (char)charVal;
 		}
-		cout <<"DECRYPTION: " <<plainText << endl;
+		else{
+			charVal = (charVal - 'a') + 'z';
+			plainText +=(char)charVal;
+		}
+
+		}
+		cout <<"DECRYPTION - PLAINTEXT : " <<plainText << endl;
 
 
 
