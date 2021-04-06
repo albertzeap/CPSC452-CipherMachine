@@ -8,26 +8,16 @@
  */
 bool Caesar::setKey(const string& key)
 { 
-	string verifiedKey;								//Final key used for error checking
 	int keyValue;									//Int value of key
-
-	for (int i = 0; i < key.length(); ++i){			//Checks for any value that is not a digit
-		char letter = key[i];
-		if (isalpha(letter)){
-			fprintf(stderr, "ERROR: Key is not a valid digit\n");
-			exit(-1);
-		}
-
-		verifiedKey += letter;						//Append the digit values to the string
+	
+	if (!(keyValue = stoi(key))){					//stoi() throws error if value is alphabet
+		return false;
 	}
-		keyValue = stoi(verifiedKey);				//Convert the string value to an int
-	
-		if (!isdigit(keyValue)){
-			cout << "CURRENT KEY: "<<verifiedKey << "\n";
-			caesarKey = keyValue;
-			return true;
-		}
-	
+	else {
+		cout << "CURRENT KEY: "<<keyValue << "\n";
+		caesarKey = keyValue;
+		return true;
+	}					
 	return false;  
 }
 
@@ -44,6 +34,9 @@ string Caesar::encrypt(const string& plaintext)
 	string ciphertext;							//Create the ciphertext variable
 	for (int i = 0; i < plaintext.length(); ++i){
 		char letter = plaintext[i];				//Saves the current character to be shifted 
+		if(letter <= 'a' || letter <= 'z'){
+			
+		}
 		letter += caesarKey % 26;				//Shifts the letter by the key value
 		ciphertext += letter;					//Saves value
 	}

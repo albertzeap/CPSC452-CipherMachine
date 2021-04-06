@@ -48,7 +48,7 @@ class Caesar: public CipherInterface
 		
 		/* The protected members */
 	protected:
-		int caesarKey; 
+		int caesarKey; // Key value
 
 };
 
