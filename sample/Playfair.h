@@ -41,6 +41,12 @@ class Playfair: public CipherInterface
 		 * @return - the plaintext
 		 */
 		virtual string decrypt(const string& ciphertext);
+
+
+		/**
+		 * Creates the Playfair matrix and updates playMatrix variable
+		 */
+		void createMatrix();
 			
 		/**
 		 * Prints the Playfair matrix

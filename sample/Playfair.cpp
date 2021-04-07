@@ -15,6 +15,7 @@ bool Playfair::setKey(const string& key)
 
 			if(keyVal.length() == key.length()){ 	//Only return true if the whole key had no digits
 				playKey = key;
+				cout << "Key: " << playKey << "\n";
 				return true;
 			}
 		}
@@ -24,35 +25,105 @@ bool Playfair::setKey(const string& key)
 	return false;  
 }
 
+/**
+ * Creates the Playfair matrix and updates playMatrix variable
+ * @param - the cleanKey without duplicates
+ */
+void Playfair::createMatrix(){
+
+	//Values that will be stored in matrix
+	string matrixContents;
+
+	//Alphabet + key										
+	string alphaKey = playKey;	
+
+	//Replaces j with i
+	for (int i = 0; i < alphaKey.length(); ++i){				
+		if (alphaKey[i] == 'j'){
+			alphaKey[i] = 'i';
+		}
+	}
+
+	//Add the alphabet to the clean key and skip j
+	char letter = 'a';  										
+	for (int i = 0; i < 26; ++i){
+			if (letter == 'j'){							
+				letter++;
+			}
+			else{
+				alphaKey += letter;
+				letter++;
+			}
+			
+	}
+
+	//Remove any duplicate letters															
+	matrixContents = removeDuplicates(alphaKey);				
+	// cout << "Matrix Contents: " << matrixContents << endl;
+	
+
+	//Loads up matrix
+	int k = 0;
+	//Column
+	for(int j = 0; j < 5; ++j){ 	
+		//Row						
+		for (int i = 0; i < 5; ++i){						
+			//Checks if k is out of range of matrixContents string
+			if (k < matrixContents.length()) {					
+				playMatrix[i][j] = matrixContents[k];
+			}
+			++k;
+		}
+	}
+
+
+	//Prints Matrix
+	for(int j = 0; j < 5; ++j){ 								
+		for (int i = 0; i < 5; ++i) {							
+			cout << playMatrix[i][j] << "   ";
+		}
+		cout << "\n";
+	}
+
+}
+
+/**
+ *  Removes the duplicates from strings
+ *  @param  - string to be cleaned
+ * 	@return - string with duplicate letters removed
+ */
 string Playfair::removeDuplicates(string filthyString){
 	string cleanString;
 	int index = 0;   
      
-
    for (int i=0; i < filthyString.length(); i++) {
      int j;  
 
 	//Move on to the next if duplicates are found
      for (j = 0; j<i; j++) {
-        if (filthyString[i] == filthyString[j])
+        if (filthyString[i] == filthyString[j]){
            break;
+		}
 	 }
        
 	//Add it to the string if it has no duplicate  
-     if (j == i)
-        cleanString += filthyString[i];
+     if (j == i){
+		cleanString += filthyString[i]; 
+	 }
    }
-     
-		
-
-		
-	
-	cout << "Matrix Key: " << cleanString << endl;
-
-
-
 	return cleanString;
 }
+
+
+/**
+ * Prints the Playfair matrix
+ * @param fp - the file pointer
+ */
+void Playfair::printMatrix(FILE* fp){
+
+}
+
+
 
 
 /**	
@@ -62,35 +133,14 @@ string Playfair::removeDuplicates(string filthyString){
  */
 string Playfair::encrypt(const string& plaintext)
 { 
-	string cipherText;
 
-	//Key that is used in the matrix with duplicates removed
-	string matrixKey = removeDuplicates(playKey);
+	string cipherText;	
+	createMatrix();
+	
+	
 
 
-
-	int k = 0;
-	char letter = 'a';
-	for(int j = 0; j < 5; ++j){ 								//Column
-		for (int i = 0; i < 5; ++i){							//Row
-			if (k < matrixKey.length() ){	
-				playMatrix[i][j] = matrixKey[k];
-			}
-			else {
-				playMatrix[i][j] = letter;
-				++letter;
-			}
-			++k;
-		}
-
-	}
-
-	for(int j = 0; j < 5; ++j){ 								//Column
-		for (int i = 0; i < 5; ++i){							//Row
-			cout << playMatrix[i][j] << " ";
-		}
-		cout << "\n";
-	}
+	
 
 	
  	
