@@ -6,11 +6,13 @@
  * @param key - the key to use
  * @return - True if the key is valid and False otherwise
  */
-bool Caesar::setKey(const string& key)
-{ 
-	int keyValue;									//Int value of key
+bool Caesar::setKey(const string& key) { 	\
+
+	//Int value of key
+	int keyValue;	
 	
-	if (!(keyValue = stoi(key))){					//stoi() throws error if value is alphabet
+	//stoi() throws error if value is alphabet
+	if (!(keyValue = stoi(key))){					
 		return false;
 	}
 	else {
@@ -32,16 +34,19 @@ bool Caesar::setKey(const string& key)
  */
 string Caesar::encrypt(const string& plaintext)
 { 
-	string ciphertext;										//Create the ciphertext variable
+	string ciphertext;									
 
 	for (int i = 0; i < plaintext.length(); ++i){
-		int charVal = ((int)plaintext[i]) + caesarKey;		//Shift the plaintext over by the key
 
-		if(charVal <= 'z'){									//Checks if shifted value is out of bounds
-			ciphertext += (char)charVal;
+		//Shift the plaintext over by the key
+		int charVal = ((int)plaintext[i]) + caesarKey;		
+
+		//Checks if shifted value is out of bounds
+		if(charVal <= 'z'){									
 		}
 		else{
-			charVal = (charVal - 'z') + 'a';				//Loop back to the beginning of the alphabet
+			//Loop back to the beginning of the alphabet
+			charVal = (charVal - 'z') + 'a';				
 			ciphertext +=(char)charVal;
 		}
 		
