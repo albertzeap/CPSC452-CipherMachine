@@ -250,14 +250,13 @@ string Playfair::encrypt(const string& plaintext)
 			cout << cipherText << "\n\n";
 		}
 
-		//If else, letter is replaced by the letter in the same row and in the column of the other letter of the pair [11 - 33][20 - 03]
-		// if ( (firstCoordinates.first != secondCoordinates.first) || (firstCoordinates.second != secondCoordinates.second) ){
-		// else { 
-		// 	int difference = firstCoordinates.first - secondCoordinates.first;
-		// 	cipherText += playMatrix[firstCoordinates.first][firstCoordinates.second + difference];
+		//If else, letter is replaced by the letter in the same row and in the column of the other letter of the pair 
+		else { 
+			int difference = secondCoordinates.first - firstCoordinates.first;
+			cipherText += playMatrix[firstCoordinates.first + difference][firstCoordinates.second];
 
-		// 	cout << cipherText << "\n\n";
-		// }
+			cout << cipherText << "\n\n";
+		}
 
 		i += 2;
 	}
