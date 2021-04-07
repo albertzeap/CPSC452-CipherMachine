@@ -2,11 +2,13 @@
 
 #include <string>
 #include <fstream>
+#include <iostream>
+#include <algorithm>
+
 #include "CipherInterface.h"
 #include "Playfair.h"
 #include "Caesar.h"
-#include <iostream>
-#include <algorithm>
+#include "RailFence.h"
 
 
 using namespace std;
@@ -58,7 +60,7 @@ int main(int argc, char** argv)
 	if( cipherN == "PLF")
 	{
 		cout << "Playfair" << endl;
-		cipher = new Playfair();
+		// cipher = new Playfair();
 	}
 	else if( cipherN == "RTS")
 	{
@@ -68,7 +70,7 @@ int main(int argc, char** argv)
 	else if( cipherN == "RFC")
 	{
 		cout << "Railfence" << endl;
-		//cipher = new Railfence();
+		cipher = new RailFence();
 	}
 	else if( cipherN == "VIG")
 	{

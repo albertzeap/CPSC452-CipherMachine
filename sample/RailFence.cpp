@@ -8,6 +8,19 @@
  */
 bool RailFence::setKey(const string& key)
 { 
+	//Int value of key
+	int keyValue;	
+	
+	//stoi() throws error if value is alphabet
+	if (!(keyValue = stoi(key))){					
+		return false;
+	}
+	else {
+		cout << "CURRENT KEY: "<< keyValue << "\n";
+		railKey = keyValue ;
+		cout << "DEPTH VALUE: "<< railKey << endl;
+		return true;
+	}					
 	
 	return false;  
 }

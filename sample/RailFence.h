@@ -5,6 +5,7 @@
 #include <string>   /* For C++ strings */
 #include <stdio.h>  /* For standard I/O */
 #include <stdlib.h> /* For miscellenous C functions */
+#include <iostream>
 #include "CipherInterface.h"
 
 using namespace std;
@@ -50,6 +51,7 @@ class RailFence: public CipherInterface
 		/* The protected members */
 	protected:
 	
+		int railKey;
 
 };
 
