@@ -78,7 +78,7 @@ int main(int argc, char** argv)
 	else if( cipherN == "CES")
 	{
 		cout << "Caesar" << endl;
-		cipher = new Caesar();
+		// cipher = new Caesar();
 	}
 	else //Error chekcing taking from the provided sample file
 	{

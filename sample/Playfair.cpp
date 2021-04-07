@@ -206,7 +206,7 @@ string Playfair::encrypt(const string& plaintext)
 
 	createMatrix();
 	pairedText = createPairedText(plaintext);
-
+	cout << "Paired Text: " << pairedText << endl;
 
 	for(int i = 0; i < pairedText.length(); i){
 		peek = i + 1;
@@ -236,7 +236,7 @@ string Playfair::encrypt(const string& plaintext)
 			cipherText += playMatrix[firstCoordinates.first ][firstCoordinates.second ];
 			cipherText += playMatrix[secondCoordinates.first][secondCoordinates.second];
 
-			// cout << cipherText << "\n\n";
+			cout << cipherText << "\n\n";
 		}
 
 		//If both letters fall in the same row, shift letters right
@@ -248,7 +248,7 @@ string Playfair::encrypt(const string& plaintext)
 			cipherText += playMatrix[firstCoordinates.first ][firstCoordinates.second ];
 			cipherText += playMatrix[secondCoordinates.first][secondCoordinates.second];
 
-			// cout << cipherText << "\n\n";
+			cout << cipherText << "\n\n";
 		}
 
 		//If else, letter is replaced by the letter in the same row and in the column of the other letter of the pair 
@@ -259,7 +259,7 @@ string Playfair::encrypt(const string& plaintext)
 			int sdifference = secondCoordinates.second - firstCoordinates.second;
 			cipherText += playMatrix[firstCoordinates.first][firstCoordinates.second + sdifference];
 
-			// cout << cipherText << "\n\n";
+			cout << cipherText << "\n\n";
 		}
 
 		i += 2;
@@ -291,16 +291,16 @@ string Playfair::decrypt(const string& cipherText)
 	int peek;
 
 	createMatrix();
-	pairedText = createPairedText(cipherText);
+	// pairedText = createPairedText(cipherText);
 
-	for(int i = 0; i < pairedText.length(); i){
+	for(int i = 0; i < cipherText.length(); i){
 		peek = i + 1;
 
-		findIndex(pairedText[i], firstCoordinates);
+		findIndex(cipherText[i], firstCoordinates);
 
 		//Looks ahead and obtains coordinates of following letter
-		if (peek < pairedText.length()){
-			findIndex(pairedText[peek], secondCoordinates);
+		if (peek < cipherText.length()){
+			findIndex(cipherText[peek], secondCoordinates);
 		}
 
 		// cout << "First Coordinates : " << firstCoordinates.first << " " << firstCoordinates.second << endl;
@@ -331,7 +331,7 @@ string Playfair::decrypt(const string& cipherText)
 
 			// cout << "Shifted First Coordinates : " << firstCoordinates.first << " " << firstCoordinates.second << endl;
 			// cout << "Shifted Second Coordinates: " << secondCoordinates.first << " " << secondCoordinates.second << endl;
-			// cout << plaintext << "\n\n";
+			cout << plaintext << "\n\n";
 		}
 
 		//If both letters fall in the same row, shift letters left
@@ -360,7 +360,7 @@ string Playfair::decrypt(const string& cipherText)
 
 			// cout << "Shifted First Coordinates : " << firstCoordinates.first << " " << firstCoordinates.second << endl;
 			// cout << "Shifted Second Coordinates: " << secondCoordinates.first << " " << secondCoordinates.second << endl;
-			// cout << plaintext << "\n\n";
+			cout << plaintext << "\n\n";
 		}
 
 		//If else, letter is replaced by the letter in the same row and in the column of the other letter of the pair 
@@ -375,7 +375,7 @@ string Playfair::decrypt(const string& cipherText)
 			plaintext += playMatrix[firstCoordinates.first][firstCoordinates.second + sdifference];
 
 
-			// cout << plaintext << "\n\n";
+			cout << plaintext << "\n\n";
 		}
 
 		i += 2;
