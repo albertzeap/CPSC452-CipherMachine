@@ -116,6 +116,47 @@ string Playfair::removeDuplicates(string filthyString){
 
 
 /**
+ * Pairs the string and places x where consecutive duplicates occur
+ */
+
+string Playfair::createPairedText(string plaintext){
+
+	string pairedText;
+
+	//Insert the x throughout the string
+	for (int i=0; i < plaintext.length(); i++) {
+
+	 //Peeking variable
+     int j = i + 1;  
+
+	 //Changes j to i in plaintext
+	 if (plaintext[i] == 'j'){
+		 plaintext[i] = 'i';
+	 }
+
+	 //Append first characters to pairedText
+	 pairedText += plaintext[i]; 
+
+	 //If there are two consecutive duplicates, insert an x
+	 if (j < plaintext.length()){
+
+		 if (plaintext[i] == plaintext[j]){
+			pairedText += 'x';
+		 }
+
+		++j;
+	 }
+   }
+
+   //Add an x to even out the string 
+   if ((pairedText.length() % 2) != 0){
+	   pairedText += 'x';
+   }
+
+   return pairedText;
+}
+
+/**
  * Prints the Playfair matrix
  * @param fp - the file pointer
  */
@@ -135,34 +176,36 @@ string Playfair::encrypt(const string& plaintext)
 { 
 	
 	string cipherText, pairedText;
-	int counter = 0;
+	int rowLocation, columnLocation;
 	createMatrix();
+	pairedText = createPairedText(plaintext);
 
-	for (int i=0; i < plaintext.length(); i++) {
-	 //Peeking variable
-     int j = i + 1;  
+   
 
-	 //Append first characters to pairedText
-	 pairedText += plaintext[i]; 
-
-	 //If there are two consecutive duplicates, insert an x
-	 if (j < plaintext.length()){
-		 if (plaintext[i] == plaintext[j]){
-			pairedText += 'x';
-		 }
-		++j;
-	 }
-
-
-	
-
-     
-	
+	for(int k = 0; k < pairedText.length(); ++k){
 		
-   }
+		for (int i = 0; i < 5; ++i){
 
+			for (int j = 0; j < 5; ++j){
+				
+				if( pairedText[k] == playMatrix[i][j] ){
+					rowLocation = j;
+					columnLocation = i;
+
+					cout << "Letter: " << pairedText[i] << " is at [" << rowLocation << "][" << columnLocation << "]\n";
+				}
+
+			}
+		}
+
+
+
+
+
+	}
 	
-
+	
+	cout << "Plaintext: " << plaintext << endl;  
 	cout << "PairedText: " << pairedText << endl;
 	
 	

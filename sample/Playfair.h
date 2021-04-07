@@ -47,6 +47,13 @@ class Playfair: public CipherInterface
 		 * Creates the Playfair matrix and updates playMatrix variable
 		 */
 		void createMatrix();
+
+		/**
+		 * Pairs the string and places x where consecutive duplicates occur
+		 * @param  - plaintext 
+		 * @return - the paired text
+		 */
+		string createPairedText(string plaintext);
 			
 		/**
 		 * Prints the Playfair matrix
@@ -70,7 +77,7 @@ class Playfair: public CipherInterface
 		string playKey;
 
 		//The 5x5 matrix that will be used
-		string playMatrix[5][5];
+		char playMatrix[5][5];
 
 
 };
