@@ -59,7 +59,7 @@ void Playfair::createMatrix(){
 
 	//Remove any duplicate letters															
 	matrixContents = removeDuplicates(alphaKey);				
-	// cout << "Matrix Contents: " << matrixContents << endl;
+	
 	
 
 	//Loads up matrix
@@ -133,9 +133,37 @@ void Playfair::printMatrix(FILE* fp){
  */
 string Playfair::encrypt(const string& plaintext)
 { 
-
-	string cipherText;	
+	
+	string cipherText, pairedText;
+	int counter = 0;
 	createMatrix();
+
+	for (int i=0; i < plaintext.length(); i++) {
+	 //Peeking variable
+     int j = i + 1;  
+
+	 //Append first characters to pairedText
+	 pairedText += plaintext[i]; 
+
+	 //If there are two consecutive duplicates, insert an x
+	 if (j < plaintext.length()){
+		 if (plaintext[i] == plaintext[j]){
+			pairedText += 'x';
+		 }
+		++j;
+	 }
+
+
+	
+
+     
+	
+		
+   }
+
+	
+
+	cout << "PairedText: " << pairedText << endl;
 	
 	
 
