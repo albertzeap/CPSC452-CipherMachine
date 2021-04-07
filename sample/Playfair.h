@@ -47,6 +47,15 @@ class Playfair: public CipherInterface
 		 * @param fp - the file pointer
 		 */
 		void printMatrix(FILE* fp);
+
+
+		/**
+		 *  Removes the duplicates from strings
+		 *  @param  - string to be cleaned
+		 * 	@return - string with duplicate letters removed
+		 */
+		string removeDuplicates(string filthyString);
+
 		
 		/* The protected members */
 	protected:
@@ -55,7 +64,7 @@ class Playfair: public CipherInterface
 		string playKey;
 
 		//The 5x5 matrix that will be used
-		string matrix[5][5];
+		string playMatrix[5][5];
 
 
 };

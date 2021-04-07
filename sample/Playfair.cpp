@@ -24,7 +24,35 @@ bool Playfair::setKey(const string& key)
 	return false;  
 }
 
+string Playfair::removeDuplicates(string filthyString){
+	string cleanString;
+	int index = 0;   
+     
 
+   for (int i=0; i < filthyString.length(); i++) {
+     int j;  
+
+	//Move on to the next if duplicates are found
+     for (j = 0; j<i; j++) {
+        if (filthyString[i] == filthyString[j])
+           break;
+	 }
+       
+	//Add it to the string if it has no duplicate  
+     if (j == i)
+        cleanString += filthyString[i];
+   }
+     
+		
+
+		
+	
+	cout << "Matrix Key: " << cleanString << endl;
+
+
+
+	return cleanString;
+}
 
 
 /**	
@@ -35,14 +63,35 @@ bool Playfair::setKey(const string& key)
 string Playfair::encrypt(const string& plaintext)
 { 
 	string cipherText;
-	for(int i = 0; i < plaintext.length(); ++i){
-		
+
+	//Key that is used in the matrix with duplicates removed
+	string matrixKey = removeDuplicates(playKey);
 
 
 
-
+	int k = 0;
+	char letter = 'a';
+	for(int j = 0; j < 5; ++j){ 								//Column
+		for (int i = 0; i < 5; ++i){							//Row
+			if (k < matrixKey.length() ){	
+				playMatrix[i][j] = matrixKey[k];
+			}
+			else {
+				playMatrix[i][j] = letter;
+				++letter;
+			}
+			++k;
+		}
 
 	}
+
+	for(int j = 0; j < 5; ++j){ 								//Column
+		for (int i = 0; i < 5; ++i){							//Row
+			cout << playMatrix[i][j] << " ";
+		}
+		cout << "\n";
+	}
+
 	
  	
 	return ""; 
