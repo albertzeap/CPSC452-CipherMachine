@@ -6,6 +6,7 @@
 #include <stdio.h>  /* For standard I/O */
 #include <stdlib.h> /* For miscellenous C functions */
 #include <iostream>
+#include <utility>
 #include "CipherInterface.h"
 
 using namespace std;
@@ -54,6 +55,13 @@ class Playfair: public CipherInterface
 		 * @return - the paired text
 		 */
 		string createPairedText(string plaintext);
+
+		/**
+		 * Finds the location of the current letter in the matrix
+		 * @param  - a letter char
+		 * @return - pair of int
+		 */
+		void findIndex(char letter, pair<int, int> &coordinates);
 			
 		/**
 		 * Prints the Playfair matrix

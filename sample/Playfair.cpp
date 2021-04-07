@@ -156,6 +156,28 @@ string Playfair::createPairedText(string plaintext){
    return pairedText;
 }
 
+
+/**
+ * Finds the location of the current letter in the matrix
+ * @param  - a letter char
+ * @return - pair of int
+ */
+void Playfair::findIndex(char letter, pair<int, int> &coordinates){
+	for (int i = 0; i < 5; ++i){
+
+			for (int j = 0; j < 5; ++j){
+				
+				if( letter == playMatrix[i][j] ){
+					coordinates.first = j;
+					coordinates.second = i;
+
+					// cout << "Letter: " << letter << " is at [" << coordinates.first << "][" << coordinates.second << "]\n";
+				}
+
+			}
+		}
+}
+
 /**
  * Prints the Playfair matrix
  * @param fp - the file pointer
@@ -176,37 +198,67 @@ string Playfair::encrypt(const string& plaintext)
 { 
 	
 	string cipherText, pairedText;
-	int rowLocation, columnLocation;
+	pair <int, int> firstCoordinates;
+	pair <int, int> secondCoordinates;
+	int peek;
+
+	cout << "Plaintext: " << plaintext << endl;  
+
 	createMatrix();
 	pairedText = createPairedText(plaintext);
 
    
 
-	for(int k = 0; k < pairedText.length(); ++k){
-		
-		for (int i = 0; i < 5; ++i){
+	for(int i = 0; i < pairedText.length(); ++i){
+		peek = i + 1;
 
-			for (int j = 0; j < 5; ++j){
-				
-				if( pairedText[k] == playMatrix[i][j] ){
-					rowLocation = j;
-					columnLocation = i;
+		cout << "Peek: " << peek << endl;
 
-					cout << "Letter: " << pairedText[i] << " is at [" << rowLocation << "][" << columnLocation << "]\n";
-				}
+		findIndex(pairedText[i], firstCoordinates);
 
-			}
+		if (peek < pairedText.length()){
+			findIndex(pairedText[peek], secondCoordinates);
 		}
 
+		cout << "First Coordinates : " << firstCoordinates.first << " " << firstCoordinates.second << endl;
+		cout << "Second Coordinates: " << secondCoordinates.first << " " << secondCoordinates.second << endl;
 
+		//If both letter fall in the same row, shift letters right
+		if (firstCoordinates.first == secondCoordinates.first){
+			firstCoordinates.first  = (firstCoordinates.first + 1) % 4;
+			secondCoordinates.first = (secondCoordinates.first + 1) % 4;
 
+			cout << "Shifted First Coordinates : " << firstCoordinates.first << " " << firstCoordinates.second << endl;
+			cout << "Shifted Second Coordinates: " << secondCoordinates.first << " " << secondCoordinates.second << endl;
 
+			cipherText += playMatrix[firstCoordinates.first ][firstCoordinates.second ];
+			cipherText += playMatrix[secondCoordinates.first][secondCoordinates.second];
+
+			cout << cipherText << endl;
+		}
+
+		//If both letters fall in the same column, shift letters down
+		if (firstCoordinates.second == secondCoordinates.second){
+			firstCoordinates.second  = (firstCoordinates.second + 1) % 4;
+			secondCoordinates.second = (secondCoordinates.second + 1) % 4;
+
+			cipherText += playMatrix[firstCoordinates.first ][firstCoordinates.second ];
+			cipherText += playMatrix[secondCoordinates.first][secondCoordinates.second];
+		}
+
+		//If else, letter is replaced by the letter in the same row and in the column of the other letter of the pair [11 - 33][20 - 03]
+		if ( (firstCoordinates.first != secondCoordinates.first) || (firstCoordinates.second != secondCoordinates.second) ){
+			int difference = firstCoordinates.first - secondCoordinates.first;
+			cipherText += playMatrix[firstCoordinates.first][firstCoordinates.second + difference];
+		}
+
+	
 
 	}
 	
 	
-	cout << "Plaintext: " << plaintext << endl;  
 	cout << "PairedText: " << pairedText << endl;
+	cout << "Ciphertext: " << cipherText << endl;
 	
 	
 
