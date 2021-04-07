@@ -168,10 +168,10 @@ void Playfair::findIndex(char letter, pair<int, int> &coordinates){
 			for (int j = 0; j < 5; ++j){
 				
 				if( letter == playMatrix[i][j] ){
-					coordinates.first = j;
-					coordinates.second = i;
+					coordinates.first = i;
+					coordinates.second = j;
 
-					// cout << "Letter: " << letter << " is at [" << coordinates.first << "][" << coordinates.second << "]\n";
+					cout << "Letter: " << letter << " is at [" << coordinates.first << "][" << coordinates.second << "]\n";
 				}
 
 			}
@@ -207,11 +207,12 @@ string Playfair::encrypt(const string& plaintext)
 	createMatrix();
 	pairedText = createPairedText(plaintext);
 
-   
+	cout << "PairedText: " << pairedText << "\n\n";
 
-	for(int i = 0; i < pairedText.length(); ++i){
+	for(int i = 0; i < pairedText.length(); i){
 		peek = i + 1;
 
+		cout << "i   : " << i << "\n";
 		cout << "Peek: " << peek << endl;
 
 		findIndex(pairedText[i], firstCoordinates);
@@ -220,44 +221,48 @@ string Playfair::encrypt(const string& plaintext)
 			findIndex(pairedText[peek], secondCoordinates);
 		}
 
-		cout << "First Coordinates : " << firstCoordinates.first << " " << firstCoordinates.second << endl;
-		cout << "Second Coordinates: " << secondCoordinates.first << " " << secondCoordinates.second << endl;
+		// cout << "First Coordinates : " << firstCoordinates.first << " " << firstCoordinates.second << endl;
+		// cout << "Second Coordinates: " << secondCoordinates.first << " " << secondCoordinates.second << endl;
 
-		//If both letter fall in the same row, shift letters right
+		//If both letter fall in the same column, shift letters down
 		if (firstCoordinates.first == secondCoordinates.first){
-			firstCoordinates.first  = (firstCoordinates.first + 1) % 4;
-			secondCoordinates.first = (secondCoordinates.first + 1) % 4;
+			firstCoordinates.second  = (firstCoordinates.second + 1) % 5;
+			secondCoordinates.second = (secondCoordinates.second + 1) % 5;
 
-			cout << "Shifted First Coordinates : " << firstCoordinates.first << " " << firstCoordinates.second << endl;
-			cout << "Shifted Second Coordinates: " << secondCoordinates.first << " " << secondCoordinates.second << endl;
+
+			// cout << "Shifted First Coordinates : " << firstCoordinates.first << " " << firstCoordinates.second << endl;
+			// cout << "Shifted Second Coordinates: " << secondCoordinates.first << " " << secondCoordinates.second << endl;
 
 			cipherText += playMatrix[firstCoordinates.first ][firstCoordinates.second ];
 			cipherText += playMatrix[secondCoordinates.first][secondCoordinates.second];
 
-			cout << cipherText << endl;
+			cout << cipherText << "\n\n";
 		}
 
-		//If both letters fall in the same column, shift letters down
-		if (firstCoordinates.second == secondCoordinates.second){
-			firstCoordinates.second  = (firstCoordinates.second + 1) % 4;
-			secondCoordinates.second = (secondCoordinates.second + 1) % 4;
+		//If both letters fall in the same row, shift letters right
+		else if (firstCoordinates.second == secondCoordinates.second){
+			firstCoordinates.first  = (firstCoordinates.first + 1) % 5;
+			secondCoordinates.first = (secondCoordinates.first + 1) % 5;
 
 			cipherText += playMatrix[firstCoordinates.first ][firstCoordinates.second ];
 			cipherText += playMatrix[secondCoordinates.first][secondCoordinates.second];
+
+			cout << cipherText << "\n\n";
 		}
 
 		//If else, letter is replaced by the letter in the same row and in the column of the other letter of the pair [11 - 33][20 - 03]
-		if ( (firstCoordinates.first != secondCoordinates.first) || (firstCoordinates.second != secondCoordinates.second) ){
-			int difference = firstCoordinates.first - secondCoordinates.first;
-			cipherText += playMatrix[firstCoordinates.first][firstCoordinates.second + difference];
-		}
+		// if ( (firstCoordinates.first != secondCoordinates.first) || (firstCoordinates.second != secondCoordinates.second) ){
+		// else { 
+		// 	int difference = firstCoordinates.first - secondCoordinates.first;
+		// 	cipherText += playMatrix[firstCoordinates.first][firstCoordinates.second + difference];
 
-	
+		// 	cout << cipherText << "\n\n";
+		// }
 
+		i += 2;
 	}
 	
 	
-	cout << "PairedText: " << pairedText << endl;
 	cout << "Ciphertext: " << cipherText << endl;
 	
 	
