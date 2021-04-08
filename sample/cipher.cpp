@@ -9,6 +9,7 @@
 #include "Playfair.h"
 #include "Caesar.h"
 #include "RailFence.h"
+#include "RowTransposition.h"
 
 
 using namespace std;
@@ -65,12 +66,12 @@ int main(int argc, char** argv)
 	else if( cipherN == "RTS")
 	{
 		cout << "Row Transposition" << endl;
-		//cipher = new RowTransposition();
+		cipher = new RowTransposition();
 	}
 	else if( cipherN == "RFC")
 	{
 		cout << "Railfence" << endl;
-		cipher = new RailFence();
+		// cipher = new RailFence();
 	}
 	else if( cipherN == "VIG")
 	{
