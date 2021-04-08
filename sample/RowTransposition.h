@@ -6,6 +6,7 @@
 #include <stdio.h>  /* For standard I/O */
 #include <stdlib.h> /* For miscellenous C functions */
 #include <iostream>
+#include <algorithm>
 #include "CipherInterface.h"
 
 using namespace std;
@@ -43,7 +44,7 @@ class RowTransposition: public CipherInterface
 		virtual string decrypt(const string& ciphertext);
 			
 		/**
-		 * Prints the Playfair matrix
+		 * Prints the Row Transposition matrix
 		 * @param fp - the file pointer
 		 */
 		void printMatrix(FILE* fp);

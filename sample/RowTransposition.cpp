@@ -48,9 +48,38 @@ bool RowTransposition::setKey(const string& key)
  */
 string RowTransposition::encrypt(const string& plaintext)
 { 
+
+	string ciphertext;
+	vector<int>::iterator itr;
+	int xCoor = rowTranKey.size(),
+		yCoor = (plaintext.length() / xCoor) + (plaintext.length() % xCoor),
+		index = 0, vecIndex = 0;
 	
-	
-	return ""; 
+	for (int i = 0; i < rowTranKey.size(); ++i){
+				
+		index = rowTranKey[i] - 1;
+		cout << "Index[" << index << "]["<< rowTranKey[i] << "] Find\n";
+		cout << "Plaintext Length: [" << plaintext.length() << "] \n";
+		//Travels down the column and appends it to the string
+		while(index < plaintext.length()){
+			ciphertext += plaintext[index];
+
+			cout << "While - Index: " << index << "--> " << plaintext[index] <<  "\n";
+
+			index += rowTranKey.size();
+			
+		}
+
+		cout << endl;
+
+		
+
+		
+	}
+
+	cout << ciphertext << endl;
+
+	return ciphertext; 
 }
 
 /**
