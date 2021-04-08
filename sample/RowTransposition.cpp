@@ -80,6 +80,7 @@ string RowTransposition::encrypt(const string& plaintext)
 	return ciphertext; 
 }
 
+
 /**
  * Decrypts a string of ciphertext
  * @param cipherText - the ciphertext
@@ -105,19 +106,34 @@ string RowTransposition::decrypt(const string& cipherText)
 		//Creates a vector of pairs consisting of the column and corresponding character
 		while(index < cipherText.length()){
 
-			rowLetters.push_back(make_pair(rowTranKey[keyCounter],cipherText[index]));
-			index += rows;
-			++keyCounter;
+		
+			if (keyCounter < rowTranKey.size()){
+				cout << keyCounter << "<-->" << index << "\n";
+				rowLetters.push_back(make_pair(rowTranKey[keyCounter],cipherText[index]));
+					cout << rowTranKey[keyCounter] << "<-->" << cipherText[index] << "\n\n";
+				++keyCounter;
+			}
+			else {
+				keyCounter = 0;
+			}
+			
+				index += rows;
+			cout << endl;
+			
 			
 		}
-
+		
 		//Sorts the integer/key values and also sorts the letters by doing so
 		sort(rowLetters.begin(),rowLetters.end());
 		
 		//Append the characters to the plaintext
 		for (int i = 0 ; i < rowLetters.size(); ++i){
+			// plaintext += rowLetters[i].second;
+			cout << rowLetters[i].first << " "  << rowLetters[i].second << "\n";
 			plaintext += rowLetters[i].second;
+			
 		}
+		cout << "\n\n";
 
 		//Vector only handles one row at a time
 		rowLetters.clear();
