@@ -1,5 +1,3 @@
-//Authors: Albert Paez, Minh Tran
-
 #include <string>
 #include <fstream>
 #include <iostream>
@@ -7,9 +5,10 @@
 
 #include "CipherInterface.h"
 #include "Playfair.h"
+#include "Vigenre.h"
 #include "Caesar.h"
-#include "RailFence.h"
 #include "RowTransposition.h"
+#include "RailFence.h"
 
 
 using namespace std;
@@ -17,11 +16,13 @@ using namespace std;
 int main(int argc, char** argv)
 {
 	string cipherN = argv[1];
+	string cipherK = argv[2];
 	string cipherM = argv[3];
 	string cipherIP = argv[4];
 	string cipherOP = argv[5];
 	
 	transform(cipherN.begin(), cipherN.end(), cipherN.begin(), ::toupper);
+
 	transform(cipherM.begin(), cipherM.end(), cipherM.begin(), ::toupper);
 	
 	if(argc != 6)
@@ -48,6 +49,8 @@ int main(int argc, char** argv)
 		
 	}
 	
+	
+	
 	//Closing file afer open
 	if (inputFile.is_open())
 	{
@@ -60,8 +63,8 @@ int main(int argc, char** argv)
 	
 	if( cipherN == "PLF")
 	{
-		cout << "Playfair" << endl;
-		// cipher = new Playfair();
+		cout << cipherN << endl;
+		cipher = new Playfair();
 	}
 	else if( cipherN == "RTS")
 	{
@@ -71,17 +74,20 @@ int main(int argc, char** argv)
 	else if( cipherN == "RFC")
 	{
 		cout << "Railfence" << endl;
-		// cipher = new RailFence();
+		cipher = new RailFence();
 	}
 	else if( cipherN == "VIG")
 	{
-		cout << "Vigenre" << endl;
-		//cipher = new Vigenre();
+		cout << "The Cipher is: Vigenere \nThe Key is: " << cipherK << endl;
+		transform(cipherK.begin(), cipherK.end(), cipherK.begin(), ::toupper);
+		transform(fileContents.begin(), fileContents.end(), fileContents.begin(), ::toupper);
+		cipher = new Vigenre();
+		cipher->setKey(cipherK);
 	}
 	else if( cipherN == "CES")
 	{
 		cout << "Caesar" << endl;
-		// cipher = new Caesar();
+		cipher = new Caesar();
 	}
 	else //Error chekcing taking from the provided sample file
 	{
@@ -91,23 +97,32 @@ int main(int argc, char** argv)
 		exit(-1);
 	}
 
+	if(cipher->setKey(cipherK) == false)
+	{
+		cout << "Invalid Key" << endl;
+		exit(-1);
+	}
 	
 	/* Set the encryption key */
-	cipher->setKey(argv[2]);
+	//cipher->setKey(argv[2]);
 	//Check the mode
 	//Write finished encryption or decryption to output file
 	outputFile.open(cipherOP, ios::out);
 	if(cipherM == "ENC")
 	{
 		/* Perform encryption */
+		cout << "Before Encryption: " << fileContents << endl;
 		string cipherText = cipher->encrypt(fileContents);
+		cout << "After Encryption: " << cipherText << endl;
 		outputFile << cipherText;
 	}
 	else if(cipherM == "DEC")
 	{
 		/* Perform decryption */
+		cout << "Before Decryption: " << fileContents << endl;
 		string plaintext = cipher->decrypt(fileContents);	
 		outputFile << plaintext;
+		cout << "After Encryption: " << plaintext << endl;
 	}
 	else
 	{

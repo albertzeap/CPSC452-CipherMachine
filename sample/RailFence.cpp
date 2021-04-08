@@ -18,7 +18,7 @@ bool RailFence::setKey(const string& key)
 	else {
 		cout << "CURRENT KEY: "<< keyValue << "\n";
 		railKey = keyValue ;
-		cout << "DEPTH VALUE: "<< railKey << endl;
+		// cout << "DEPTH VALUE: "<< railKey << endl;
 		return true;
 	}					
 	
@@ -42,8 +42,8 @@ string RailFence::encrypt(const string& plaintext)
 	
 	
 	
-	cout << "Plaintext      : " << plaintext     << "\n";
-	cout << "Letters Per Row: " << lettersPerRow << "\n";
+	// cout << "Plaintext      : " << plaintext     << "\n";
+	// cout << "Letters Per Row: " << lettersPerRow << "\n";
 
 	for (int i = 0; i < lettersPerRow; ++i){
 
@@ -89,8 +89,8 @@ string RailFence::decrypt(const string& cipherText)
 		cIndex = 0;
 	char railMatrix[railKey][lettersPerRow];
 
-	cout << "Ciphertext     : " << cipherText     << "\n";
-	cout << "Letters Per Row: " << lettersPerRow << "\n";
+	// cout << "Ciphertext     : " << cipherText     << "\n";
+	// cout << "Letters Per Row: " << lettersPerRow << "\n";
 
 	for (int i = 0; i < railKey; ++i){
 
