@@ -16,9 +16,7 @@ bool Caesar::setKey(const string& key) { 	\
 		return false;
 	}
 	else {
-		cout << "CURRENT KEY: "<<keyValue << "\n";
 		caesarKey = (keyValue % 26);
-		cout << "Shift Value: " << caesarKey << endl;
 		return true;
 	}					
 	return false;  
@@ -52,7 +50,6 @@ string Caesar::encrypt(const string& plaintext)
 		
 				
 	}
-	cout << "ENCRYPTION - CIPHERTEXT: " <<ciphertext << endl;
 
 	return ciphertext; 
 }
@@ -77,10 +74,6 @@ string Caesar::decrypt(const string& cipherText)
 		}
 
 		}
-		cout <<"DECRYPTION - PLAINTEXT : " <<plainText << endl;
-
-
-
 	return plainText; 
 	
 }

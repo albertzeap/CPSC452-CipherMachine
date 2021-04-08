@@ -1,4 +1,7 @@
 #include "Vigenre.h"
+#include <cctype>
+#include <string>
+#include <iostream>
 
 using namespace std;
 
@@ -50,13 +53,16 @@ string Vigenre::encrypt(const string& plaintext)
 	{
 		for(int i = 0; i < keyV.size();i++)
 		{
-			cipherC = (char) (((((int)plaintext[index]-(int)'A') + (int)keyV[i]-(int)'A'))%26) + (int)'A';
-			cipherT += cipherC;
-			index++;
+			if(index != sizeP)
+			{ 
+				cipherC = (char) (((((int)plaintext[index]-(int)'A') + (int)keyV[i]-(int)'A'))%26) + (int)'A';
+				cipherT += cipherC;
+				index++;
+			}
 		
 		}
 	}
-
+	
 	return cipherT; 
 }
 
@@ -70,16 +76,18 @@ string Vigenre::decrypt(const string& cipherText)
 	//Decryption
 	string plainT = "";
 	char cipherC;
-	
+	int sizeT = cipherText.size();
 	int index = 0;
 	while(plainT.size() < cipherText.size())
 	{
 		for(int i = 0; i < keyV.size();i++)
 		{
-
-			cipherC = (char) (((((int)cipherText[index]-(int)'A') - ((int)keyV[i]-(int)'A')) + 26)%26) + (int)'A';;
-			plainT += cipherC;
-			index++;
+			if(index != sizeT)
+			{
+				cipherC = (char) (((((int)cipherText[index]-(int)'A') - ((int)keyV[i]-(int)'A')) + 26)%26) + (int)'A';;
+				plainT += cipherC;
+				index++;
+			}
 		}
 	}
 	

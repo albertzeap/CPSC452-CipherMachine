@@ -15,6 +15,21 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
+
+
+	if(argc != 6)
+	{
+		fprintf(stderr, "Usage: <CIPHER NAME> <KEY> <ENC/DEC> <INPUTFILE> <OUTPUT FILE>\n");
+		cout << "PLF --> PLAYFAIR            |	KEY: Word\n";
+		cout << "RTS --> ROW TRANSPOSITION   |	KEY: Digit-Digit-Digit\n";
+		cout << "RFC --> RAILFENCE           |	KEY: Digit\n";
+		cout << "VIG --> VIGENERE            |	KEY: Word\n";
+		cout << "CES --> CAESAR              |	KEY: Digit\n";
+		exit(-1);
+	}
+
+	
+
 	string cipherN = argv[1];
 	string cipherK = argv[2];
 	string cipherM = argv[3];
@@ -25,11 +40,6 @@ int main(int argc, char** argv)
 
 	transform(cipherM.begin(), cipherM.end(), cipherM.begin(), ::toupper);
 	
-	if(argc != 6)
-	{
-		fprintf(stderr, "Usage: <CIPHER NAME> <KEY> <ENC/DEC> <INPUTFILE> <OUTPUT FILE>\n");
-		exit(-1);
-	}
 	
 	//File objects
 	fstream inputFile, outputFile;			
@@ -63,22 +73,22 @@ int main(int argc, char** argv)
 	
 	if( cipherN == "PLF")
 	{
-		cout << cipherN << endl;
+		cout << "CIPHER: Playfair \nKEY: " 			<< cipherK << endl;
 		cipher = new Playfair();
 	}
 	else if( cipherN == "RTS")
 	{
-		cout << "Row Transposition" << endl;
+		cout << "CIPHER: Row Transposition \nKEY: " << cipherK << endl;
 		cipher = new RowTransposition();
 	}
 	else if( cipherN == "RFC")
 	{
-		cout << "Railfence" << endl;
+		cout << "CIPHER: Rail Fence \nKEY: " 		<< cipherK << endl;
 		cipher = new RailFence();
 	}
 	else if( cipherN == "VIG")
 	{
-		cout << "The Cipher is: Vigenere \nThe Key is: " << cipherK << endl;
+		cout << "CIPHER: Vigenere \nKEY: " << cipherK << endl;
 		transform(cipherK.begin(), cipherK.end(), cipherK.begin(), ::toupper);
 		transform(fileContents.begin(), fileContents.end(), fileContents.begin(), ::toupper);
 		cipher = new Vigenre();
@@ -86,7 +96,7 @@ int main(int argc, char** argv)
 	}
 	else if( cipherN == "CES")
 	{
-		cout << "Caesar" << endl;
+		cout << "CIPHER: Caesar \nKEY: " << cipherK << endl;
 		cipher = new Caesar();
 	}
 	else //Error chekcing taking from the provided sample file
@@ -111,18 +121,18 @@ int main(int argc, char** argv)
 	if(cipherM == "ENC")
 	{
 		/* Perform encryption */
-		cout << "Before Encryption: " << fileContents << endl;
+		cout << "PLAINTEXT : " << fileContents << endl;
 		string cipherText = cipher->encrypt(fileContents);
-		cout << "After Encryption: " << cipherText << endl;
+		cout << "CIPHERTEXT: " << cipherText << endl;
 		outputFile << cipherText;
 	}
 	else if(cipherM == "DEC")
 	{
 		/* Perform decryption */
-		cout << "Before Decryption: " << fileContents << endl;
+		cout << "CIPHERTEXT: " << fileContents << endl;
 		string plaintext = cipher->decrypt(fileContents);	
 		outputFile << plaintext;
-		cout << "After Encryption: " << plaintext << endl;
+		cout << "PLAINTEXT : " << plaintext << endl;
 	}
 	else
 	{

@@ -16,9 +16,8 @@ bool RailFence::setKey(const string& key)
 		return false;
 	}
 	else {
-		cout << "CURRENT KEY: "<< keyValue << "\n";
-		railKey = keyValue ;
-		// cout << "DEPTH VALUE: "<< railKey << endl;
+		railKey = keyValue;
+
 		return true;
 	}					
 	
@@ -40,11 +39,6 @@ string RailFence::encrypt(const string& plaintext)
 		pIndex = 0;
 	char railMatrix[railKey][lettersPerRow];
 	
-	
-	
-	// cout << "Plaintext      : " << plaintext     << "\n";
-	// cout << "Letters Per Row: " << lettersPerRow << "\n";
-
 	for (int i = 0; i < lettersPerRow; ++i){
 
 		//Inserts the plaintext by column
@@ -65,14 +59,11 @@ string RailFence::encrypt(const string& plaintext)
 
 		//Append matrix elements to cipher text
 		for (int j = 0; j < lettersPerRow; ++j){
-			cout << railMatrix[i][j] << " ";
 			cipherText += railMatrix[i][j];
 		}
 
 		cout << "\n";
 	}
-	
-	cout << "CipherText: " << cipherText << "\n";
 
 	return cipherText; 
 }
@@ -88,9 +79,6 @@ string RailFence::decrypt(const string& cipherText)
 	int lettersPerRow = cipherText.length() / railKey,
 		cIndex = 0;
 	char railMatrix[railKey][lettersPerRow];
-
-	// cout << "Ciphertext     : " << cipherText     << "\n";
-	// cout << "Letters Per Row: " << lettersPerRow << "\n";
 
 	for (int i = 0; i < railKey; ++i){
 
@@ -115,10 +103,7 @@ string RailFence::decrypt(const string& cipherText)
 		for (int j = 0; j < railKey; ++j){
 			plaintext += railMatrix[j][i];
 		}
-	}
-
-	cout << "Plaintext: " << plaintext << "\n";
- 
+	} 
 	return plaintext; 
 	
 }
