@@ -39,7 +39,6 @@ string RailFence::encrypt(const string& plaintext)
 	int lettersPerRow = plaintext.length() / railKey,
 		pIndex = 0;
 	char railMatrix[railKey][lettersPerRow];
-	// char railMatrix[lettersPerRow][railKey];
 	
 	
 	
@@ -56,13 +55,15 @@ string RailFence::encrypt(const string& plaintext)
 		}
 	}
 
+	//Print and add value to ciphertext
 	for (int i = 0; i < railKey; ++i){
 
+		//Add space for diagonal view
 		for(int space = 0; space < i; ++space){
 			cout << " ";
 		}
 
-
+		//Append matrix elements to cipher text
 		for (int j = 0; j < lettersPerRow; ++j){
 			cout << railMatrix[i][j] << " ";
 			cipherText += railMatrix[i][j];
@@ -83,7 +84,42 @@ string RailFence::encrypt(const string& plaintext)
  */
 string RailFence::decrypt(const string& cipherText) 
 { 
-	return ""; 
+	string plaintext;
+	int lettersPerRow = cipherText.length() / railKey,
+		cIndex = 0;
+	char railMatrix[railKey][lettersPerRow];
+
+	cout << "Ciphertext     : " << cipherText     << "\n";
+	cout << "Letters Per Row: " << lettersPerRow << "\n";
+
+	for (int i = 0; i < railKey; ++i){
+
+		//Add space for diagonal view
+		for(int space = 0; space < i; ++space){
+			cout << " ";
+		}
+
+		//Inserts the ciphertext by row
+		for (int j = 0; j < lettersPerRow; ++j){
+			railMatrix[i][j] = cipherText[cIndex]; 
+			++cIndex;
+			cout << railMatrix[i][j] << " ";
+		}
+		cout << "\n";
+	}
+
+
+	for (int i = 0; i < lettersPerRow; ++i){
+
+		//Inserts the plaintext by column
+		for (int j = 0; j < railKey; ++j){
+			plaintext += railMatrix[j][i];
+		}
+	}
+
+	cout << "Plaintext: " << plaintext << "\n";
+ 
+	return plaintext; 
 	
 }
 
