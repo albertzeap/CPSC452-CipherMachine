@@ -29,7 +29,7 @@ bool RowTransposition::setKey(const string& key)
 	}
 
 	//Prints Key
-	cout << "KEY: ";  
+	// cout << "KEY: ";  
 	for (int i = 0 ; i < rowTranKey.size(); ++i){
 		cout << rowTranKey[i] << " ";
 	}
@@ -50,16 +50,14 @@ string RowTransposition::encrypt(const string& plaintext)
 { 
 
 	string ciphertext;
-	vector<int>::iterator itr;
-	int xCoor = rowTranKey.size(),
-		yCoor = (plaintext.length() / xCoor) + (plaintext.length() % xCoor),
-		index = 0, vecIndex = 0;
+	int index = 0;
 	
 	for (int i = 0; i < rowTranKey.size(); ++i){
 				
 		index = rowTranKey[i] - 1;
 		cout << "Index[" << index << "]["<< rowTranKey[i] << "] Find\n";
 		cout << "Plaintext Length: [" << plaintext.length() << "] \n";
+
 		//Travels down the column and appends it to the string
 		while(index < plaintext.length()){
 			ciphertext += plaintext[index];
@@ -70,7 +68,7 @@ string RowTransposition::encrypt(const string& plaintext)
 			
 		}
 
-		cout << endl;
+		cout << "\n";
 
 		
 
@@ -89,7 +87,45 @@ string RowTransposition::encrypt(const string& plaintext)
  */
 string RowTransposition::decrypt(const string& cipherText) 
 { 
-	return ""; 
+	string plaintext;
+
+	//Create a pair to record the column number of the character
+	vector<pair <int,char>> rowLetters;
+	int rows  = cipherText.length() / rowTranKey.size(),
+		 keyCounter, index = 0;
+
+	for (int i = 0; i < rows; ++i){
+
+		//Index keeps track of character in the row
+		index = i;
+
+		//Key counter maps the character values to the key value
+		keyCounter = 0;
+
+		//Creates a vector of pairs consisting of the column and corresponding character
+		while(index < cipherText.length()){
+
+			rowLetters.push_back(make_pair(rowTranKey[keyCounter],cipherText[index]));
+			index += rows;
+			++keyCounter;
+			
+		}
+
+		//Sorts the integer/key values and also sorts the letters by doing so
+		sort(rowLetters.begin(),rowLetters.end());
+		
+		//Append the characters to the plaintext
+		for (int i = 0 ; i < rowLetters.size(); ++i){
+			plaintext += rowLetters[i].second;
+		}
+
+		//Vector only handles one row at a time
+		rowLetters.clear();
+		
+
+	}
+	cout << plaintext << "\n";
+	return plaintext; 
 	
 }
 
