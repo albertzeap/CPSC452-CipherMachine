@@ -35,9 +35,45 @@ bool RailFence::setKey(const string& key)
  */
 string RailFence::encrypt(const string& plaintext)
 { 
+	string cipherText;
+	int lettersPerRow = plaintext.length() / railKey,
+		pIndex = 0;
+	char railMatrix[railKey][lettersPerRow];
+	// char railMatrix[lettersPerRow][railKey];
 	
 	
-	return ""; 
+	
+	cout << "Plaintext      : " << plaintext     << "\n";
+	cout << "Letters Per Row: " << lettersPerRow << "\n";
+
+	for (int i = 0; i < lettersPerRow; ++i){
+
+		//Inserts the plaintext by column
+		for (int j = 0; j < railKey; ++j){
+			railMatrix[j][i] = plaintext[pIndex]; 
+			++pIndex;
+			
+		}
+	}
+
+	for (int i = 0; i < railKey; ++i){
+
+		for(int space = 0; space < i; ++space){
+			cout << " ";
+		}
+
+
+		for (int j = 0; j < lettersPerRow; ++j){
+			cout << railMatrix[i][j] << " ";
+			cipherText += railMatrix[i][j];
+		}
+
+		cout << "\n";
+	}
+	
+	cout << "CipherText: " << cipherText << "\n";
+
+	return cipherText; 
 }
 
 /**

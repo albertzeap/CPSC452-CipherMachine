@@ -52,6 +52,8 @@ class RailFence: public CipherInterface
 	protected:
 	
 		int railKey;
+		
+		
 
 };
 
