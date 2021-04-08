@@ -49,26 +49,32 @@ bool RowTransposition::setKey(const string& key)
 string RowTransposition::encrypt(const string& plaintext)
 { 
 
-	string ciphertext;
+	string ciphertext, plaintextDup = plaintext; 
 	int index = 0;
+
+	//Adds filler characters to even out the string for decryption
+	while ( (plaintextDup.length() % rowTranKey.size()) != 0){
+		plaintextDup += 'x';
+	}
+	
 	
 	for (int i = 0; i < rowTranKey.size(); ++i){
 				
 		index = rowTranKey[i] - 1;
-		cout << "Index[" << index << "]["<< rowTranKey[i] << "] Find\n";
-		cout << "Plaintext Length: [" << plaintext.length() << "] \n";
+		// cout << "Index[" << index << "]["<< rowTranKey[i] << "] Find\n";
+		// cout << "Plaintext Length: [" << plaintextDup.length() << "] \n";
 
 		//Travels down the column and appends it to the string
-		while(index < plaintext.length()){
-			ciphertext += plaintext[index];
+		while(index < plaintextDup.length()){
+			ciphertext += plaintextDup[index];
 
-			cout << "While - Index: " << index << "--> " << plaintext[index] <<  "\n";
+			// cout << "While - Index: " << index << "--> " << plaintextDup[index] <<  "\n";
 
 			index += rowTranKey.size();
 			
 		}
 
-		cout << "\n";
+		// cout << "\n";
 
 		
 
@@ -92,8 +98,9 @@ string RowTransposition::decrypt(const string& cipherText)
 
 	//Create a pair to record the column number of the character
 	vector<pair <int,char>> rowLetters;
-	int rows  = cipherText.length() / rowTranKey.size(),
+	int rows  = (cipherText.length() / rowTranKey.size()) ,
 		 keyCounter, index = 0;
+
 
 	for (int i = 0; i < rows; ++i){
 
@@ -106,11 +113,11 @@ string RowTransposition::decrypt(const string& cipherText)
 		//Creates a vector of pairs consisting of the column and corresponding character
 		while(index < cipherText.length()){
 
-		
+			
 			if (keyCounter < rowTranKey.size()){
-				cout << keyCounter << "<-->" << index << "\n";
+				// cout << keyCounter << "<-->" << index << "\n";
 				rowLetters.push_back(make_pair(rowTranKey[keyCounter],cipherText[index]));
-					cout << rowTranKey[keyCounter] << "<-->" << cipherText[index] << "\n\n";
+				// cout << rowTranKey[keyCounter] << "<-->" << cipherText[index] << "\n\n";
 				++keyCounter;
 			}
 			else {
@@ -118,7 +125,7 @@ string RowTransposition::decrypt(const string& cipherText)
 			}
 			
 				index += rows;
-			cout << endl;
+			// cout << endl;
 			
 			
 		}
@@ -129,11 +136,11 @@ string RowTransposition::decrypt(const string& cipherText)
 		//Append the characters to the plaintext
 		for (int i = 0 ; i < rowLetters.size(); ++i){
 			// plaintext += rowLetters[i].second;
-			cout << rowLetters[i].first << " "  << rowLetters[i].second << "\n";
+			// cout << rowLetters[i].first << " "  << rowLetters[i].second << "\n";
 			plaintext += rowLetters[i].second;
 			
 		}
-		cout << "\n\n";
+		// cout << "\n\n";
 
 		//Vector only handles one row at a time
 		rowLetters.clear();
