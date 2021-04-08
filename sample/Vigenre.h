@@ -5,6 +5,11 @@
 #include <string>   /* For C++ strings */
 #include <stdio.h>  /* For standard I/O */
 #include <stdlib.h> /* For miscellenous C functions */
+#include <cctype>
+#include <string>
+#include <iostream>
+
+
 #include "CipherInterface.h"
 
 using namespace std;
